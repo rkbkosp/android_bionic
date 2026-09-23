@@ -1818,6 +1818,15 @@ cc_defaults {
 cc_library {
     name: "libstdc++",
     defaults: ["libstdc++_defaults"],
+    // The LHDC encoder prebuilts in device/oneplus/astonc/lhdc are linked into the
+    // Bluetooth APEX and their DT_NEEDED still names libstdc++ (they import no symbols
+    // from it, but the linker must still be able to resolve it inside the APEX), so the
+    // APEX has to be allowed to pull this module in.
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.bt",
+    ],
+    min_sdk_version: "36",
 }
 
 cc_library_shared {
