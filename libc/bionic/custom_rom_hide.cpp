@@ -726,6 +726,11 @@ static const char* const kSpoofedEmptyProps[] = {
 struct PropOverride { const char* name; const char* value; };
 static const PropOverride kSpoofedValueProps[] = {
     {"ro.debuggable", "0"},
+    // bootloader_prop is world-readable, so apps see the real unlock state even
+    // though /proc/cmdline is rewritten below. Keep the two channels consistent.
+    {"ro.boot.verifiedbootstate", "green"},
+    {"ro.boot.flash.locked", "1"},
+    {"ro.boot.vbmeta.device_state", "locked"},
     {"ro.build.type", "user"},
     {"ro.build.tags", "release-keys"},
     {"ro.secure", "1"},
